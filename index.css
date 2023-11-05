@@ -76,3 +76,14 @@
     padding: 0 20px;
     height: 40px;
 }
+
+.restaurantHeader-container{
+    padding: 10px 10px;
+    text-align: -webkit-center;
+}
+
+#splitter{
+    border: none;
+    border-bottom: 1px dashed #d3d3d3;
+    width: 800px;
+}

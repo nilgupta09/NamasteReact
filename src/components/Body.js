@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { useState, useEffect } from "react";
@@ -42,7 +43,11 @@ const Body = () => {
                 <button className="clear-btn" onClick={() => { fetchData() }}>Clear Filter</button>
             </div>
             <div className='restaurant-container'>
-                {filteredList.map((restaurant) => <RestaurantCard key={restaurant.info.id} resData={restaurant}/>)}
+                {filteredList.map((restaurant) => 
+                <Link key={restaurant.info.id} to={"/restaurants/"+restaurant.info.id}>
+                    <RestaurantCard resData={restaurant}/>
+                </Link>
+                )}
             </div>            
         </div>
     )
