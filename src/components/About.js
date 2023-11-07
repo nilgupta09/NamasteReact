@@ -1,12 +1,15 @@
 import Users from "./Users";
 import UsersClass from "./UsersClass";
 
-const About = () => {
-    return <div>
-        <h1>About us Page</h1>
-        <Users component={"Functional Component"} name={"Nilesh Gupta"} location={"kitchener, Ontario"} contact={"nilesh88987@gmail.com"}/>
-        <UsersClass component={"Class Component"} name={"Nilesh Gupta"} location={"kitchener, Ontario"} contact={"nilesh88987@gmail.com"}/>
-    </div>
-};
+import { Component } from "react";
+
+class About extends Component{
+    render(){
+        return <div>
+            <h1>About us Page</h1>
+            <UsersClass component={"Class Component"} name={"Nilesh Gupta"} location={"kitchener, Ontario"} contact={"nilesh88987@gmail.com"}/>
+        </div>
+    }
+} 
 
 export default About;
