@@ -1,11 +1,14 @@
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Shimmer } from "react-shimmer";
 import useRestaurantDetails from "../utils/useRestaurantDetails";
+import ItemCategory from "./ItemCategory";
 
 const Restaurant =() => {
     const {restId} = useParams(); 
 
     const restData = useRestaurantDetails(restId);
+    const [showIndex, setShowIndex] = useState(1);
 
     if(restData === null) return <Shimmer/>;
 
@@ -13,23 +16,20 @@ const Restaurant =() => {
 
     const {cards} = restData?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR;
 
-    const {card} = cards[1]?.card;
-
-    console.log(restData?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR.cards);
+    const itemCategories = cards.filter((category) => category.card?.card?.["@type"] === 'type.googleapis.com/swiggy.presentation.food.v2.ItemCategory');
 
     return(
-        <div className="restaurantHeader-container">
-            <h1>{name}</h1>
-            <h4>{cuisines.join(", ")}</h4>
-            <h4>{locality + ", "}{areaName + ", "}{city}</h4>
-            <hr id="splitter"></hr>
-            <div className="restaurant-names">
-                <h4>{card.title}</h4>
-                <div>{card.itemCards.map(item => 
-                <h5 key={item.card.info?.id}>{item.card.info?.name + ": Rs." + (item.card.info?.defaultPrice/100 | item.card.info?.price/100)}
-                </h5>
-                )}</div>
-            </div>
+        <div className="text-center">
+            <h1 className="font-bold m-10 text-2xl">{name}</h1>
+            <h4 className="font-bold">{cuisines.join(", ")}</h4>
+            <h4 className="font-bold">{locality + ", "}{areaName + ", "}{city}</h4>
+            {itemCategories.map((category, idx) => (
+                <ItemCategory 
+                    key={idx} 
+                    itemCategory={category?.card?.card}
+                    showList={idx === showIndex && true}
+                    setShowIndex={() => setShowIndex(idx)}/>
+            ))}
         </div>
     )
 }
