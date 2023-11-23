@@ -5,21 +5,25 @@ import Header from './components/Header';
 import Body from './components/Body'
 import Contact from './components/Contact'
 import Error from './components/Error';
-import Restaurant from './components/Restaurant';
+import { Provider } from 'react-redux';
+import appStore from './utils/appStore';
+import Product from './components/Product';
+import Login from './components/Login';
 
 //Lazy Loading
 //Dynamic Bundling
 //On-demand loading
-const Grocery = lazy(() => import("./components/Grocery"));
-
 const About = lazy(() => import("./components/About"));
 
 const AppLayout = () => {
+
     return (
-        <div className='app'>
-            <Header/>
-            <Outlet />
-        </div>
+      <Provider store={appStore}>
+            <div className=' bg-gray-200'>
+                <Header/>
+                <Outlet />
+            </div>        
+      </Provider>
     )
 }
 
@@ -41,12 +45,12 @@ const router = createBrowserRouter([
         element:<Contact/>,
       },
       {
-        path:"/grocery",
-        element:<Suspense fallback = {<h1>Loading in progress.....</h1>}><Grocery/></Suspense>,
+        path:"/product/:prodid",
+        element:<Product />
       },
       {
-        path:"/restaurants/:restId",
-        element:<Restaurant />
+        path:"/login",
+        element:<Login/>
       }
     ],
     errorElement: <Error/>,
